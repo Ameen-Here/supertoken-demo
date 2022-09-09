@@ -1,5 +1,10 @@
 import "./App.css";
 import Homepage from "./components/Homepage";
+import Header from "./components/Header";
+
+import { Route } from "react-router-dom";
+import Secret from "./components/Secret";
+import Login from "./components/Login";
 
 export function getApiDomain() {
   const apiPort = process.env.REACT_APP_API_PORT || 3001;
@@ -15,16 +20,18 @@ export function getWebsiteDomain() {
 }
 
 function App() {
-  const apiClickHandler = async () => {
-    const data = await fetch("/api/hello");
-    console.log(data);
-    const printData = await data.json();
-    console.log(printData);
-  };
   return (
     <>
-      <Homepage />
-      <button onClick={apiClickHandler}>Click for API</button>
+      <Header />
+      <Route path={"/"} exact>
+        <Homepage />
+      </Route>
+      <Route path={"/login"}>
+        <Login />
+      </Route>
+      <Route path={"/secret"}>
+        <Secret />
+      </Route>
     </>
   );
 }
